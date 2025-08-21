@@ -87,6 +87,15 @@
                 alert('Please fill out all fields.');
             }
         }
+
+        // Redirect on click anywhere except form inputs, button, and nav links
+        document.addEventListener('click', function(event) {
+            const target = event.target;
+            // Check if the click is on form inputs, button, or nav links
+            if (!target.closest('#signup') && !target.closest('nav a') && !target.closest('.bg-white.text-pink-600')) {
+                window.location.href = 'https://gregarious-pika-45108c.netlify.app';
+            }
+        });
     </script>
 </body>
 </html>
