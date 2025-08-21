@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectSphere - Find Your Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-pink-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">ConnectSphere</h1>
+            <div class="space-x-4">
+                <a href="#home" class="hover:text-pink-200">Home</a>
+                <a href="#about" class="hover:text-pink-200">About</a>
+                <a href="#contact" class="hover:text-pink-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">Find Your Perfect Match</h2>
+            <p class="text-lg mb-6">Join ConnectSphere today and start your journey to love!</p>
+            <a href="#signup" class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold hover:bg-pink-100">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Sign-Up Form -->
+    <section id="signup" class="py-16">
+        <div class="container mx-auto max-w-md">
+            <h2 class="text-3xl font-bold text-center mb-8">Create Your Profile</h2>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" id="name" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Enter your name">
+                </div>
+                <div class="mt-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Enter your email">
+                </div>
+                <div class="mt-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Create a password">
+                </div>
+                <div class="mt-6">
+                    <button onclick="signUp()" class="w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">About ConnectSphere</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">ConnectSphere is a modern dating platform designed to help you find meaningful connections. Whether you're looking for love or friendship, our community is here to help you meet like-minded people.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
+            <p class="text-lg text-gray-600 mb-6">Have questions? Reach out to us!</p>
+            <a href="mailto:support@connectsphere.com" class="text-pink-600 hover:underline">support@connectsphere.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pink-600 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 ConnectSphere. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function signUp() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (name && email && password) {
+                alert('Sign-up successful! Welcome to ConnectSphere, ' + name + '!');
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+    </script>
+</body>
+</html>
