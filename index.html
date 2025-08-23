@@ -1,97 +1,274 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConnectSphere - Find Your Match</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <title>Are you 50+?</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Quick eligibility check for our 50+ dating community." />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --card:#111827;        /* gray-900 */
+      --soft:#1f2937;        /* gray-800 */
+      --text:#e5e7eb;        /* gray-200 */
+      --muted:#9ca3af;       /* gray-400 */
+      --accent:#ef4444;      /* red-500 */
+      --accent-2:#f97316;    /* orange-500 */
+      --ok:#10b981;          /* emerald-500 */
+      --warn:#f59e0b;        /* amber-500 */
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, #172554 0%, transparent 60%),
+        radial-gradient(1000px 700px at 90% 30%, #1e293b 0%, transparent 55%),
+        var(--bg);
+      color:var(--text);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width: min(760px, 96%);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)) , var(--card);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .header{
+      padding:22px 26px;
+      display:flex; align-items:center; gap:14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background: linear-gradient(90deg, rgba(239,68,68,.12), rgba(249,115,22,.12));
+    }
+    .heart{
+      width:34px; height:34px; border-radius:10px;
+      background: white; display:grid; place-items:center;
+      box-shadow: 0 6px 18px rgba(239,68,68,.25);
+    }
+    .heart svg{width:22px; height:22px; fill:#ef4444}
+    .title{font-size: clamp(20px, 3vw, 24px); font-weight:700}
+    .muted{color: var(--muted); font-size:14px}
+    .body{padding:28px}
+    .question{
+      font-size: clamp(24px, 4vw, 36px);
+      line-height:1.15; font-weight:800; letter-spacing:.3px;
+      margin: 6px 0 18px;
+    }
+    .sub{color:var(--muted); margin-bottom:26px}
+    .btns{display:flex; gap:14px; flex-wrap:wrap}
+    .btn{
+      padding:14px 22px; font-weight:700; letter-spacing:.2px;
+      border-radius:14px; border:1px solid transparent; cursor:pointer;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      color:#fff; transition:.18s transform ease, .18s filter ease, .18s border-color ease;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .yes{ background-image: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+    .no{ background:#0b1220; border-color:#253045; color:#cbd5e1 }
+    .trust{
+      margin-top:24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      color:var(--muted); font-size:13px;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.08); padding:8px 12px; border-radius:999px;
+      display:flex; align-items:center; gap:8px; background:#0b1220;
+    }
+    .badge{font-size:12px; color:#cbd5e1}
+    .footer{
+      padding:16px 26px; display:flex; justify-content:space-between; align-items:center;
+      border-top:1px solid rgba(255,255,255,.06);
+      color:var(--muted); font-size:12px;
+      flex-wrap:wrap; gap:12px;
+    }
+    /* Verify modal */
+    .modal{
+      position: fixed; inset:0; display:none; place-items:center; padding:20px;
+      background: rgba(0,0,0,.6); backdrop-filter: blur(3px); z-index:10;
+    }
+    .modal.show{display:grid}
+    .modal-card{
+      width:min(520px, 96%); background:#0b1220; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; box-shadow:var(--shadow); padding:22px 22px 18px;
+    }
+    .modal h3{margin:0 0 8px; font-size:22px}
+    .modal p{margin:0 0 14px; color:var(--muted)}
+    .row{display:flex; gap:10px; align-items:center; margin:10px 0 18px}
+    .input{
+      flex:1; padding:12px 14px; border-radius:12px; border:1px solid #23324a; outline:none;
+      background:#0f1626; color:#e5e7eb; font-size:16px;
+    }
+    .go{padding:12px 16px; border-radius:12px; border:0; background:linear-gradient(90deg, var(--ok), #22c55e); color:#03151a; font-weight:800; cursor:pointer}
+    .warn{color:#f59e0b; font-weight:700}
+    /* Honeypot (visible only to bots that ignore CSS selectors) */
+    .hp{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    /* Small desktop hint */
+    .desktop-hint{font-size:12px; color:#8ab4ff}
+    @media (max-width:520px){
+      .trust{font-size:12px}
+      .btn{flex:1}
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <!-- Navigation -->
-    <nav class="bg-pink-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">ConnectSphere</h1>
-            <div class="space-x-4">
-                <a href="#home" class="hover:text-pink-200">Home</a>
-                <a href="#about" class="hover:text-pink-200">About</a>
-                <a href="#contact" class="hover:text-pink-200">Contact</a>
-            </div>
-        </div>
-    </nav>
+<body>
+  <div class="card" role="region" aria-labelledby="h1">
+    <div class="header">
+      <div class="heart" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.33-7.86C-0.3 9.62 2.02 4 6.86 4c2.08 0 3.67 1.08 5.14 3 1.47-1.92 3.06-3 5.14-3 4.84 0 7.16 5.62 4.19 9.14C18.7 16.65 12 21 12 21z"/></svg>
+      </div>
+      <div>
+        <div class="title" id="h1">Quick Check: Are you 50+?</div>
+        <div class="muted">For our 50+ dating community (desktop friendly)</div>
+      </div>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Find Your Perfect Match</h2>
-            <p class="text-lg mb-6">Join ConnectSphere today and start your journey to love!</p>
-            <a href="#signup" class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold hover:bg-pink-100">Get Started</a>
-        </div>
-    </section>
+    <div class="body">
+      <div class="question">Are you 50 years of age or older?</div>
+      <div class="sub">Please confirm to continue. We keep this step to protect members and reduce spam.</div>
 
-    <!-- Sign-Up Form -->
-    <section id="signup" class="py-16">
-        <div class="container mx-auto max-w-md">
-            <h2 class="text-3xl font-bold text-center mb-8">Create Your Profile</h2>
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="name" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Enter your name">
-                </div>
-                <div class="mt-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Enter your email">
-                </div>
-                <div class="mt-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600" placeholder="Create a password">
-                </div>
-                <div class="mt-6">
-                    <button onclick="signUp()" class="w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700">Sign Up</button>
-                </div>
-            </div>
-        </div>
-    </section>
+      <!-- Honeypot field (bots often fill every input) -->
+      <label class="hp">Your website
+        <input id="website" name="website" type="text" autocomplete="url" />
+      </label>
 
-    <!-- About Section -->
-    <section id="about" class="bg-white py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-4">About ConnectSphere</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">ConnectSphere is a modern dating platform designed to help you find meaningful connections. Whether you're looking for love or friendship, our community is here to help you meet like-minded people.</p>
-        </div>
-    </section>
+      <div class="btns" role="group" aria-label="Age confirmation">
+        <button id="yesBtn" class="btn yes" type="button">Yes, I’m 50+</button>
+        <button id="noBtn" class="btn no" type="button">No</button>
+      </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="bg-gray-100 py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
-            <p class="text-lg text-gray-600 mb-6">Have questions? Reach out to us!</p>
-            <a href="mailto:support@connectsphere.com" class="text-pink-600 hover:underline">support@connectsphere.com</a>
-        </div>
-    </section>
+      <div class="trust">
+        <span class="pill"><span class="badge">Safe • Simple • Trusted</span></span>
+        <span class="pill"><span class="badge">No spam • No popups</span></span>
+        <span class="pill desktop-hint">Optimized for desktop users</span>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-pink-600 text-white py-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 ConnectSphere. All rights reserved.</p>
-        </div>
-    </footer>
+    <div class="footer">
+      <span>By continuing you agree to our Terms & Privacy.</span>
+      <span>© <span id="y"></span> Silver Connections</span>
+    </div>
+  </div>
 
-    <script>
-        function signUp() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            if (name && email && password) {
-                alert('Sign-up successful! Welcome to ConnectSphere, ' + name + '!');
-            } else {
-                alert('Please fill out all fields.');
-            }
-        }
+  <!-- Verification modal -->
+  <div id="modal" class="modal" aria-modal="true" role="dialog" aria-labelledby="mTitle" aria-describedby="mDesc">
+    <div class="modal-card">
+      <h3 id="mTitle">Quick verification</h3>
+      <p id="mDesc">Please solve this to continue. This helps us keep bots out.</p>
+      <div class="row">
+        <span id="challenge" class="warn"></span>
+      </div>
+      <div class="row">
+        <input id="answer" class="input" inputmode="numeric" autocomplete="off" placeholder="Your answer" />
+        <button id="verifyBtn" class="go" type="button">Verify</button>
+      </div>
+      <div id="msg" class="muted" aria-live="polite"></div>
+    </div>
+  </div>
 
-        // Redirect on any click anywhere on the page
-        document.addEventListener('click', function(event) {
-            window.location.href = 'https://preeminent-biscuit-47a4b7.netlify.app';
-        });
-    </script>
+  <script>
+    // ==== CONFIG ====
+    const REDIRECT_URL = "https://your-dating-site.example/signup"; // TODO: replace with your real signup URL
+    const REQUIRE_DESKTOP = false; // set true if you strictly want desktop only to proceed
+
+    // ==== Helpers ====
+    const qs = (s,el=document)=>el.querySelector(s);
+    const qsa = (s,el=document)=>[...el.querySelectorAll(s)];
+    const startTs = Date.now();
+    const yearEl = qs('#y'); yearEl.textContent = new Date().getFullYear();
+
+    // Copy through query params & click id etc.
+    function buildRedirectURL(){
+      const u = new URL(REDIRECT_URL);
+      const src = new URL(window.location.href);
+      // Pass all existing query params downstream (utm, subids, etc.)
+      src.searchParams.forEach((v,k)=>{ if(!u.searchParams.has(k)) u.searchParams.set(k,v) });
+      // Simple click time metric
+      u.searchParams.set('ct', String(Date.now() - startTs));
+      // Device hint
+      u.searchParams.set('device', /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop');
+      return u.toString();
+    }
+
+    // Very light device gate if required
+    function isDesktop(){
+      return !/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    // Anti-bot: dwell time & honeypot & optional math challenge
+    const modal = qs('#modal');
+    const challengeEl = qs('#challenge');
+    const answerEl = qs('#answer');
+    const msgEl = qs('#msg');
+
+    let a=0,b=0,needVerify=false;
+
+    function needVerification(){
+      const dwell = Date.now() - startTs;
+      const hp = qs('#website').value?.trim();
+      // fast click OR honeypot filled OR webdriver (very rough) → verify
+      return dwell < 800 || (hp && hp.length>0) || navigator.webdriver === true;
+    }
+
+    function openVerify(){
+      // generate a simple challenge (kept tiny for seniors)
+      a = Math.floor(3 + Math.random()*6);    // 3..8
+      b = Math.floor(2 + Math.random()*5);    // 2..6
+      challengeEl.textContent = `What is ${a} + ${b} ?`;
+      answerEl.value = '';
+      msgEl.textContent = '';
+      modal.classList.add('show');
+      answerEl.focus();
+    }
+
+    function closeVerify(){
+      modal.classList.remove('show');
+    }
+
+    function proceedIfVerified(){
+      const val = parseInt(answerEl.value,10);
+      if(val === a + b){
+        closeVerify();
+        safeRedirect();
+      } else {
+        msgEl.textContent = "That doesn’t look right. Please try again.";
+        answerEl.focus();
+      }
+    }
+
+    function safeRedirect(){
+      const url = buildRedirectURL();
+      window.location.assign(url);
+    }
+
+    // Button actions
+    qs('#yesBtn').addEventListener('click', () => {
+      if (REQUIRE_DESKTOP && !isDesktop()){
+        alert("This experience is optimized for desktop. Please open on a desktop browser.");
+        return;
+      }
+      needVerify = needVerification();
+      if (needVerify) openVerify(); else safeRedirect();
+    });
+
+    qs('#noBtn').addEventListener('click', () => {
+      alert("Thanks for your interest! Our community is designed for ages 50+. Have a wonderful day.");
+    });
+
+    qs('#verifyBtn').addEventListener('click', proceedIfVerified);
+    answerEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') proceedIfVerified(); });
+
+    // Accessibility: close modal on Esc
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && modal.classList.contains('show')) closeVerify();
+    });
+  </script>
 </body>
 </html>
