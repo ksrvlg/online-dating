@@ -98,28 +98,17 @@
   </div>
 
   <script>
-    // ==== CONFIG ====
-    const SIGNUP_URL = "https://your-signup.example/"; // <-- replace with your final HTTPS signup URL
-
-    // Keep page static: NO auto-redirect. We build the URL only on click.
+    // Keep page static: NO auto-redirect.
     const qs = s => document.querySelector(s);
-    const yearEl = qs('#y'); yearEl.textContent = new Date().getFullYear();
-
-    function buildClickUrl() {
-      // Pass through existing query params (e.g., clickid, subid, utm_*)
-      const dest = new URL(SIGNUP_URL);
-      const src = new URL(window.location.href);
-      src.searchParams.forEach((v, k) => {
-        if (!dest.searchParams.has(k)) dest.searchParams.set(k, v);
-      });
-      return dest.toString();
-    }
+    const yearEl = qs('#y'); 
+    yearEl.textContent = new Date().getFullYear();
 
     qs('#btnYes').addEventListener('click', () => {
-      // Light bot guard: if honeypot filled, do nothing (no redirect, no error)
+      // Light bot guard: if honeypot filled, do nothing
       const hp = qs('#website')?.value?.trim();
       if (hp && hp.length > 0) return;
-      window.location.assign(buildClickUrl());
+      // Redirect to happn
+      window.location.assign('https://www.happn.com/');
     });
 
     qs('#btnNo').addEventListener('click', () => {
@@ -131,7 +120,7 @@
   <noscript>
     <div style="max-width:720px;margin:16px auto;padding:12px;color:#e5e7eb;font-family:Arial,Helvetica,sans-serif">
       JavaScript is required to continue. If you are 50+, please visit
-      <a href="https://your-signup.example/" style="color:#93c5fd">this link</a>.
+      <a href="https://www.happn.com/" style="color:#93c5fd">happn</a>.
     </div>
   </noscript>
 </body>
