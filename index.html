@@ -1,127 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Welcome to Our 50+ Community</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="A safe, simple community for people 50+ seeking companionship." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <style>
-    :root{
-      --bg:#0f172a; --card:#111827; --muted:#9ca3af; --text:#e5e7eb;
-      --accent:#ef4444; --accent2:#f97316; --ok:#10b981;
-      --border:rgba(255,255,255,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-      background:
-        radial-gradient(1000px 700px at 15% 10%, #1e293b 0%, transparent 60%),
-        radial-gradient(900px 600px at 90% 20%, #172554 0%, transparent 55%),
-        var(--bg);
-      color:var(--text); display:flex; align-items:center; justify-content:center; padding:24px;
-    }
-    .card{
-      width:min(720px,96%); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)) , var(--card);
-      border:1px solid var(--border); border-radius:18px; box-shadow:0 30px 80px rgba(0,0,0,.45); overflow:hidden;
-    }
-    .header{display:flex; gap:12px; align-items:center; padding:18px 22px; border-bottom:1px solid var(--border);
-      background:linear-gradient(90deg, rgba(239,68,68,.12), rgba(249,115,22,.12));}
-    .logo{width:34px;height:34px;border-radius:10px;background:#fff;display:grid;place-items:center}
-    .logo svg{width:22px;height:22px;fill:#ef4444}
-    .hgroup .title{font-weight:800; font-size:20px}
-    .hgroup .sub{color:var(--muted); font-size:13px}
-    .body{padding:26px 22px}
-    h1{margin:0 0 10px; font-size:clamp(22px,3.5vw,28px)}
-    p{margin:10px 0; color:var(--muted)}
-    .cta-area{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
-    .btn{
-      appearance:none; border:0; cursor:pointer; padding:14px 18px; border-radius:14px; font-weight:800; letter-spacing:.2px; color:#fff;
-      background-image: linear-gradient(90deg, var(--accent), var(--accent2));
-    }
-    .btn-secondary{
-      appearance:none; border:1px solid var(--border); cursor:pointer; padding:14px 18px; border-radius:14px; font-weight:700; color:#cbd5e1;
-      background:#0b1220;
-    }
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .badge{border:1px solid var(--border); border-radius:999px; padding:8px 12px; background:#0b1220; color:#cbd5e1; font-size:12px}
-    .footer{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; border-top:1px solid var(--border); padding:14px 22px; color:var(--muted); font-size:12px}
-    .age-box{margin-top:16px; padding:14px; border:1px dashed var(--border); border-radius:12px; background:#0b1220}
-    .age-q{font-weight:700}
-    .yes-no{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
-    .yes{background-image: linear-gradient(90deg, var(--ok), #22c55e); color:#04130e}
-    .no{background:#0b1220; border:1px solid var(--border); color:#cbd5e1}
-    /* accessible hide for honeypot; no popups, no auto-redirect */
-    .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meaningful Connections – A Dating Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Join Meaningful Connections – a safe dating community focused on fostering genuine, long‑term relationships. We respect your privacy and follow advertising standards that prohibit explicit or sexualised content.">
 </head>
 <body>
-  <div class="card" role="region" aria-labelledby="t1">
-    <div class="header">
-      <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.33-7.86C-0.3 9.62 2.02 4 6.86 4c2.08 0 3.67 1.08 5.14 3 1.47-1.92 3.06-3 5.14-3 4.84 0 7.16 5.62 4.19 9.14C18.7 16.65 12 21 12 21z"/></svg>
-      </div>
-      <div class="hgroup">
-        <div id="t1" class="title">A Community for People 50+</div>
-        <div class="sub">Simple, respectful, and easy to use</div>
-      </div>
-    </div>
-
-    <div class="body">
-      <h1>Welcome! Let’s make sure you’re in the right place.</h1>
-      <p>We’re a friendly community designed for those <strong>aged 50 and above</strong>. Please confirm to continue.</p>
-
-      <!-- Honeypot (bots often fill everything) -->
-      <label class="hp">Your website<input id="website" name="website" type="text" autocomplete="url"></label>
-
-      <div class="age-box">
-        <div class="age-q">Are you 50 years of age or older?</div>
-        <div class="yes-no" role="group" aria-label="Age confirmation">
-          <button id="btnYes" class="btn yes" type="button">Yes, I’m 50+</button>
-          <button id="btnNo" class="btn-secondary no" type="button">No</button>
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-bar">
+            <div class="nav-logo"><a href="index.html">Meaningful Connections</a></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="join.html">Join</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-      </div>
+    </header>
 
-      <div class="badges" aria-hidden="true">
-        <span class="badge">Safe • Simple • Trusted</span>
-        <span class="badge">No pop-ups • No auto-redirects</span>
-        <span class="badge">Desktop friendly</span>
-      </div>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('images/couple.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Find Your Person</h1>
+            <p>Discover authentic connections with people who share your values. Our community is built on respect, safety and meaningful relationships – not casual encounters.</p>
+            <a href="join.html" class="btn-primary">Join Now</a>
+        </div>
+    </section>
 
-    <div class="footer">
-      <span>By continuing you agree to our Terms &amp; Privacy.</span>
-      <span>© <span id="y"></span> Silver Connections</span>
-    </div>
-  </div>
+    <!-- Features Section -->
+    <section class="container">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>Safe &amp; Respectful</h3>
+                <p>We take safety seriously. Profiles are screened, and we prohibit explicit or sexualised content in accordance with Taboola’s policies【229973747648658†L84-L96】.</p>
+            </div>
+            <div class="feature">
+                <h3>Meaningful Intent</h3>
+                <p>Our platform caters to those seeking genuine, long‑term relationships rather than casual encounters or adult dating, which Taboola does not allow【229973747648658†L84-L96】.</p>
+            </div>
+            <div class="feature">
+                <h3>Inclusive Community</h3>
+                <p>We celebrate diversity and do not tolerate discrimination based on race, religion, gender or any personal attributes【229973747648658†L119-L133】.</p>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Keep page static: NO auto-redirect.
-    const qs = s => document.querySelector(s);
-    const yearEl = qs('#y'); 
-    yearEl.textContent = new Date().getFullYear();
-
-    qs('#btnYes').addEventListener('click', () => {
-      // Light bot guard: if honeypot filled, do nothing
-      const hp = qs('#website')?.value?.trim();
-      if (hp && hp.length > 0) return;
-      // Redirect to happn
-      window.location.assign('https://www.happn.com/');
-    });
-
-    qs('#btnNo').addEventListener('click', () => {
-      // Stay on page—no redirects. Simple friendly notice.
-      alert("Thanks for visiting! Our community is designed for ages 50+.");
-    });
-  </script>
-
-  <noscript>
-    <div style="max-width:720px;margin:16px auto;padding:12px;color:#e5e7eb;font-family:Arial,Helvetica,sans-serif">
-      JavaScript is required to continue. If you are 50+, please visit
-      <a href="https://www.happn.com/" style="color:#93c5fd">happn</a>.
-    </div>
-  </noscript>
+    <footer>
+        <div class="container">
+            <p>© 2025 Meaningful Connections. All rights reserved.</p>
+            <p>Designed in accordance with Taboola advertising policies. <a href="terms.html">Read our terms</a>.</p>
+        </div>
+    </footer>
 </body>
 </html>
